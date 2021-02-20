@@ -14,9 +14,9 @@
 #include <tensorflow/c/c_api.h>
 #include "Model.h"
 
-#include "ofMain.h"
 
 namespace ofxCppFlow {
+
 
 class Model;
 
@@ -67,7 +67,6 @@ public:
     friend class Model;
 };
 
-};
+}
+
 #endif //CPPFLOW_TENSOR_H
-
-

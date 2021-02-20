@@ -6,7 +6,7 @@
 
 #include <utility>
 
-using namespace ofxCppFlow;
+namespace ofxCppFlow {
 
 Tensor::Tensor(const Model& model, const std::string& operation) {
 
@@ -91,6 +91,7 @@ void Tensor::set_data(std::vector<T> new_data) {
 
     // Check number of elements
     auto exp_size = std::abs(std::accumulate(this->shape.begin(), this->shape.end(), 1, std::multiplies<int64_t>()));
+
     this->error_check(new_data.size() % exp_size == 0, "Expected and provided number of elements do not match");
 
     // Deallocator
@@ -142,6 +143,7 @@ std::vector<T> Tensor::get_data() {
     this->error_check(raw_data != nullptr, "Tensor data is empty");
 
     size_t size = TF_TensorByteSize(this->val) / TF_DataTypeSize(TF_TensorType(this->val));
+
     // Convert to correct type
     const auto T_data = static_cast<T*>(raw_data);
     return std::vector<T>(T_data, T_data + size);
@@ -245,3 +247,5 @@ template void Tensor::set_data<uint8_t>(std::vector<uint8_t> new_data, const std
 template void Tensor::set_data<uint16_t>(std::vector<uint16_t> new_data, const std::vector<int64_t>& new_shape);
 template void Tensor::set_data<uint32_t>(std::vector<uint32_t> new_data, const std::vector<int64_t>& new_shape);
 template void Tensor::set_data<uint64_t>(std::vector<uint64_t> new_data, const std::vector<int64_t>& new_shape);
+
+}
