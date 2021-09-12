@@ -12,6 +12,8 @@ Model::Model(const std::string& model_filename, const std::vector<uint8_t>& conf
 
     // Create the session.
     TF_SessionOptions* sess_opts = TF_NewSessionOptions();
+    uint8_t config[11] = {0x32, 0x09, 0x09, 0x9a, 0x99, 0x99, 0x99, 0x99, 0x99, 0xe9, 0x3f};
+    TF_SetConfig(sess_opts, (void*)config, 11, status);
 
     if (!config_options.empty())
     {
